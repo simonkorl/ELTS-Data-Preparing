@@ -40,24 +40,24 @@ class SumCollector:
         with open(path, 'r', encoding='utf-8') as file:
             print("loading from file: " + path)
             self.clear()
-            start = time.clock()
+            start = time.time()
             line = file.readline().strip('\r\n')
             while line:
                 jsonline = json.loads(line)
                 self.data.append(jsonline)
                 self.stat.stat_once(jsonline["summary"], jsonline["text"])
                 line = file.readline().strip('\r\n')
-            end = time.clock()
+            end = time.time()
             print("loading finished. Time: %d" % (end - start))
     
     def dump_data(self, path):
         with open(path, 'w', encoding="utf-8") as file:
             print("writing into file: " + path)
-            start = time.clock()
+            start = time.time()
             for dict in self.data:
                 jsonline = json.dumps(dict)
                 file.write(jsonline)
                 file.write('\n')
-            end = time.clock()
+            end = time.time()
             print("writing finished. Time: %d" % (end - start))
 
